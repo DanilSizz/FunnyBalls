@@ -1,5 +1,6 @@
 import pygame
 import Ball
+import Keyhandler
 class BallGame():
 
     def __init__(self, screen_size, fps = 60, gameState = True):
@@ -9,13 +10,14 @@ class BallGame():
         self.gameState = gameState
         self.clock = pygame.time.Clock()
         self.balls = []
+        self.Keyhandler = Keyhandler.Keyhandler()
         
     def run(self):
 
         while self.gameState != False:
             self.clock.tick(self.framesPerSecond)
 
-            self.keyboardEvents()
+            self.Keyhandler.handle_keyboard(self)
 
             self.render()
 
@@ -25,14 +27,6 @@ class BallGame():
         self.background = pygame.image.load(imagePath)
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
             
-    def keyboardEvents(self):
-        for event in pygame.event.get():
-            match event.type:
-                case pygame.QUIT:
-                    self.gameState = False
-                case pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    self.spawnBall(x, y)
                     
     def spawnBall(self, x, y):
         ball = Ball.Ball(x, y)
