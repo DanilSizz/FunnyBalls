@@ -19,8 +19,8 @@ class Ball(pygame.rect.Rect):
         return size + random.randint(-1 * randomness, randomness)
 
     def setVelocity(self, vx, vy, randomness):
-        self.vx = vx * random.randint(-1, 1) + random.randint(-1 * randomness, randomness)
-        self.vy = vy * random.randint(-1, 1) + random.randint(-1 * randomness, randomness)
+        self.vx = vx * random.randint(-1, 1) -1 * randomness
+        self.vy = vy * random.randint(-1, 1) -1 * randomness
         
     def updatePosition(self):
         self.x += self.vx
