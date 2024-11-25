@@ -1,5 +1,10 @@
 import pygame
+<<<<<<< Updated upstream
 import Ball
+=======
+import ball
+import keyHandler
+>>>>>>> Stashed changes
 class BallGame():
 
     def __init__(self, screen_size, fps = 60, gameState = True):
@@ -9,13 +14,21 @@ class BallGame():
         self.gameState = gameState
         self.clock = pygame.time.Clock()
         self.balls = []
+<<<<<<< Updated upstream
+=======
+        self.keyHandler = keyHandler.KeyHandler()
+>>>>>>> Stashed changes
         
     def run(self):
 
         while self.gameState != False:
             self.clock.tick(self.framesPerSecond)
 
+<<<<<<< Updated upstream
             self.keyboardEvents()
+=======
+            self.keyHandler.handle_keyboard(self)
+>>>>>>> Stashed changes
 
             self.render()
 
@@ -35,17 +48,17 @@ class BallGame():
                     self.spawnBall(x, y)
                     
     def spawnBall(self, x, y):
-        ball = Ball.Ball(x, y)
-        self.balls.append(ball)
+        ball_var = ball.Ball(x, y)
+        self.balls.append(ball_var)
 
     def render(self):
         self.screen.fill((0, 0, 0))
-        for ball in self.balls:
-            ball.updatePosition()
-            ball.checkBounds(self.screen.get_width(), self.screen.get_height())
-            #ball.checkCollision(self.balls)
+        for ball_var in self.balls:
+            ball_var.updatePosition()
+            ball_var.checkBounds(self.screen.get_width(), self.screen.get_height())
+            #ball_var.checkCollision(self.balls)
             
-            pygame.draw.ellipse(self.screen, ball.color, ball)
+            pygame.draw.ellipse(self.screen, ball_var.color, ball_var.rect_zone)
             
         
 newGame = BallGame((800, 600), 60, True)

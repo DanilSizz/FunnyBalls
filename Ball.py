@@ -1,15 +1,18 @@
 import random
 import pygame
+import physics
 
-class Ball(pygame.rect.Rect):
+class Ball():
 
     def __init__(self, x: int, y: int):
         
-        
         size = self.setSize(50, 20)
-        super().__init__(x - size // 2, y - size // 2, size, size)
-        self.color = self.setRandomColor()
 
+        self.rect_zone = pygame.rect.Rect(x - size // 2, y - size // 2, size, size)
+        self.phys_engine = physics.Physics(0.1, 1)
+
+        #super().__init__(x - size // 2, y - size // 2, size, size)
+        self.color = self.setRandomColor()
         self.setVelocity(3, 3, 1)
 
     def setRandomColor(self):
@@ -23,19 +26,19 @@ class Ball(pygame.rect.Rect):
         self.vy = vy * random.randint(-1, 1) + random.randint(-1 * randomness, randomness)
         
     def updatePosition(self):
-        self.x += self.vx
-        self.y += self.vy
+        self.rect_zone.x += self.vx
+        self.rect_zone.y += self.vy
 
     def checkBounds(self, width, height):
-        if self.left < 0 or self.right > width:
+        if self.rect_zone.left < 0 or self.rect_zone.right > width:
             self.vx = -1 * self.vx 
-        if self.top < 0 or self.bottom > height:
+        if self.rect_zone.top < 0 or self.rect_zone.bottom > height:
             self.vy = -1 * self.vy
 
     def checkCollision(self, balls):
 
         for ball in balls:
             if ball != self:
-                if self.colliderect(ball):
+                if self.rect_zone.colliderect(ball):
                     self.vx = -1 * (self.vx + ball.vx) / 2 
                     self.vy = -1 * (self.vy + ball.vy) / 2
